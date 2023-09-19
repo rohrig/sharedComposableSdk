@@ -9,8 +9,7 @@ export default function () {
     loading: false,
   }));
 
-  function getDevHeader () {
-    console.log('************** called getDevHeader ', serverHeaders.cookie)
+  function addHeadersToState () {
     return getDevModeHeader(
       devModeCookie as string,
       serverHeaders.cookie as string
@@ -25,21 +24,21 @@ export default function () {
     }, {});
   }
 
-  function getDevModeHeader(cookieHeader: string, serverHeader: string) {
+  function getDevModeHeader(cookieHeader: string, serverHeader: string) :void {
     console.log('called getHeader . . .')
     if (process.server) {
       console.log('server sending header : ', serverHeader)
       const headerObj = getHeaderObj(serverHeader)
       state.value.headerData = {isDevMode: headerObj['dev-mode']}
-      return headerObj['dev-mode']
+      return
     }
     console.log('server sending header : ', serverHeader)
     state.value.headerData = {isDevMode: cookieHeader}
-    return cookieHeader
+    return
   }
 
   return {
-    getDevHeader,
+    addHeadersToState,
     ...toRefs(state.value),
   }
 

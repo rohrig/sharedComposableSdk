@@ -15,9 +15,9 @@ export const useSdk = createSharedComposable(() => {
     }),
   };
 
-  const {getDevHeader, headerData} = useHeaders()
+  const {addHeadersToState, headerData} = useHeaders()
 
-  getDevHeader()
+  addHeadersToState()
 
   // If an interceptor is already set, eject it to remove it
   // this prevents headers being shared across instances
