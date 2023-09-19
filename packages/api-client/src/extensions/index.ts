@@ -1,0 +1,1 @@
+export { devHeaderExtension } from './devMode'
