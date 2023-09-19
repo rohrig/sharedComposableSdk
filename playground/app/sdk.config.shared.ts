@@ -6,6 +6,8 @@ import { createSharedComposable } from '@vueuse/core';
 // Maintain a reference to the interceptor
 let interceptorId: number | null = null;
 
+// using createSharedComposable means the server cookies are set once and shared 
+// across instances. 
 export const useSdk = createSharedComposable((nuxtApp: NuxtApp) => {
   const sdkConfig = {
     boilerplate: buildModule<BoilerplateModuleType>(boilerplateModule, {
