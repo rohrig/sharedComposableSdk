@@ -5,7 +5,7 @@ import { NuxtApp } from 'nuxt/app';
 // Maintain a reference to the interceptor
 let interceptorId: number | null = null;
 
-export const useSdk = (nuxtApp: NuxtApp) => {
+export const useSdk = () => {
   const sdkConfig = {
     boilerplate: buildModule<BoilerplateModuleType>(boilerplateModule, {
       apiUrl: 'http://localhost:8181/boilerplate',
@@ -30,7 +30,7 @@ export const useSdk = (nuxtApp: NuxtApp) => {
 
       // here you can set any headers you want
       config.headers['amazing-header'] = 'coolest header ever'; 
-      config.headers['dev-mode'] = headerData.value?.isDevMode ?? 'false'
+      config.headers['dev-mode'] = headerData.value?.isDevMode ?? 'dude'
       
       return config;
     },

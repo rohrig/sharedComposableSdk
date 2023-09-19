@@ -10,7 +10,7 @@ export default function () {
   }));
 
   function getDevHeader () {
-    console.log('************** called getDevHeader ')
+    console.log('************** called getDevHeader ', serverHeaders.cookie)
     return getDevModeHeader(
       devModeCookie as string,
       serverHeaders.cookie as string
@@ -18,25 +18,24 @@ export default function () {
   }
 
   function getHeaderObj(headers: string): { [key: string]: string } {
-    return headers.split(';').reduce<{ [key: string]: string }>((acc, item) => {
+    return headers?.split(';').reduce<{ [key: string]: string }>((acc, item) => {
       const [key, value] = item.trim().split('=');
       acc[key] = value;
       return acc;
     }, {});
   }
 
-  function getDevModeHeader(cookieHeader: string, serverHeader: string): void {
+  function getDevModeHeader(cookieHeader: string, serverHeader: string) {
     console.log('called getHeader . . .')
     if (process.server) {
-      
       console.log('server sending header : ', serverHeader)
       const headerObj = getHeaderObj(serverHeader)
       state.value.headerData = {isDevMode: headerObj['dev-mode']}
-      return
+      return headerObj['dev-mode']
     }
     console.log('server sending header : ', serverHeader)
     state.value.headerData = {isDevMode: cookieHeader}
-    return
+    return cookieHeader
   }
 
   return {

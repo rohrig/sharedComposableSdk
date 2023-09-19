@@ -8,7 +8,7 @@ let interceptorId: number | null = null;
 
 // using createSharedComposable means the server cookies are set once and shared 
 // across instances. 
-export const useSdk = createSharedComposable((nuxtApp: NuxtApp) => {
+export const useSdk = createSharedComposable(() => {
   const sdkConfig = {
     boilerplate: buildModule<BoilerplateModuleType>(boilerplateModule, {
       apiUrl: 'http://localhost:8181/boilerplate',
@@ -29,11 +29,6 @@ export const useSdk = createSharedComposable((nuxtApp: NuxtApp) => {
     (config) => {
       if (!config.headers) {
         config.headers = {};
-      }
-
-      const headers = nuxtApp.ssrContext?.event.headers.get('cookie');
-      if (!headers) {
-        return;
       }
 
       // here you can set any headers you want

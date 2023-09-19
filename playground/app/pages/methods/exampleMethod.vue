@@ -32,24 +32,17 @@
 import { SfButton } from '@storefront-ui/vue';
 import { JsonViewer } from "vue3-json-viewer"
 import "vue3-json-viewer/dist/index.css";
-import { useSdk } from '~/sdk.config.shared';
+import { useSdk } from '~/sdk.config';
 
 const res = useState('exampleMethod', () => 'waiting to call exampleMethod() ...');
 
-const app = useNuxtApp()
 async function callEndpoint() {
-    const { data } = await useSdk(app).boilerplate.exampleMethod({});
+    const { data } = await useSdk().boilerplate.exampleMethod({});
     res.value = data
 }
 
-const { data: serverCheck, error } = await useAsyncData((nuxtApp) => {
-    if(!nuxtApp){
-         nuxtApp = useNuxtApp()
-    }
-    return useSdk(nuxtApp).boilerplate.exampleMethod({})
-})
-
-
+const { data: serverCheck, error } = await useAsyncData(() => useSdk().boilerplate.exampleMethod({})
+)
 
 function reset() {
     res.value = 'waiting to call exampleMethod() ...'
